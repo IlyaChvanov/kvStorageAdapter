@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package kvstore;
+
+option java_package = "hse.kvstorageadapter.grpc";
+option java_multiple_files = true;
+
+service KVStore {
+  rpc Get (GetIn) returns (GetOut);
+  rpc ConsistentGet(GetIn) returns (GetOut);
+  rpc Put (PutIn) returns (PutOut);
+  rpc Delete (DeleteIn) returns (DeleteOut);
+}
+
+message GetIn {
+  string key = 1;
+}
+
+message GetOut {
+  string value = 1;
+}
+
+message PutIn {
+  string key = 1;
+  string value = 2;
+  int64 ttl = 3;
+}
+
+message PutOut {}
+
+message DeleteIn {
+  string key = 1;
+}
+
+message DeleteOut {}
